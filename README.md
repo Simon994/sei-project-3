@@ -1,4 +1,4 @@
-# Discover Montréal
+# Discover Your Montréal
 This is a a full-stack MERN app, with multiple relationships and CRUD functionality, allowing users to share, rate and comment on attractions in and around the city of Montréal.
 
 Built as part of a team, this is my third project during the Software Engineering Immersive at General Assembly.
@@ -31,11 +31,11 @@ As a group, design and build a full-stack application, using an Express API to s
 * Git, and GitHub
 
 
-## The App: Discover Montréal
+## The App: Discover Your Montréal
 ### Live version
 *A live version of the app can be found here*
 
-Discover Montréal is a MERN stack app designed for a community of users to share information on local attractions in and around Montreal. 
+Discover Your Montréal is a MERN stack app designed for a community of users to share information on local attractions in and around Montreal. 
 Visitors to the site can browse index and show pages that provide details of  the local attractions, including ratings and comments left by other users.
 Users who are registered and logged in can post comments and ratings on locations.
 Users can furthermore go through an extra sign-up step to register as Contributors. Contributors have a personal profile and can create new locations, which are then available for other users to view, comment on and rate. 
