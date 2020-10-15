@@ -59,3 +59,58 @@ The team also used Trello to organise daily tasks (agreed each day at a stand-up
 #### Wireframe
 ![Wireframe Screenshot](./Readme_Screenshots/Wireframe_Readme_Screenshot.png)
 
+### Models
+
+We built a location model, with coords and comments as embedded data: 
+
+``` javascript
+const coordsSchema = new mongoose.Schema({
+  latitude: { type: Number, default: 45.5017 },
+  longitude: { type: Number, default: -73.5673 } 
+})
+
+const commentSchema = new mongoose.Schema({
+  text: { type: String, required: true, maxlength: 400 },
+  rating: { type: Number, required: true, min: 1, max: 5 },
+  local: { type: mongoose.Schema.ObjectId, ref: 'User', required: true }
+}, {
+  timestamps: true
+})
+
+const locationsSchema = new mongoose.Schema({
+  
+  placeName: { type: String },
+  placeDescription: { type: String },
+  placePhotos: [{ type: String }],
+  amenities: [{ type: String }],
+  eventDate: { type: String },
+  coords: [coordsSchema],
+  feature: [{ type: String }],
+  local: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  comments: [commentSchema]
+
+}, {
+  timestamps: true
+})
+``` 
+
+We also built a user model (see below), which is referenced by the location model above.
+
+``` javascript
+const userSchema = new mongoose.Schema({
+  username: { type: String, unique: true, maxlength: 50, required: true },
+  email: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  userimage: { type: String },
+  bio: { type: String },
+  isLocal: { type: Boolean, default: false },
+  usertelephone: { type: String }
+})
+
+userSchema
+  .virtual('createdLocations', {
+    ref: 'Location',
+    localField: '_id',
+    foreignField: 'local'
+  })
+```
