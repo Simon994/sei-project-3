@@ -95,6 +95,8 @@ const locationsSchema = new mongoose.Schema({
 ``` 
 
 We also built a user model (see below), which is referenced by the location model above.
+The userSchema below includes a property with a key `isLocal`. Its value is set to `true` when a user registers as a Contributor (a step which requires them to provide a biography). When logged in and `isLocal = true`, the user can view their personal profile. They can also create and delete locations, for other users to view and comment on.
+
 
 ``` javascript
 const userSchema = new mongoose.Schema({
@@ -114,3 +116,50 @@ userSchema
     foreignField: 'local'
   })
 ```
+
+### Routes and Controllers
+
+#### Routes
+The app has the following routes, several of which are secure routes that use `jsonwebtoken` for authorization.
+
+``` javascript
+
+//Users can read (get) all locations, and if authorized create (post) new locations
+router.route('/locations')
+  .get(locations.index)
+  .post(secureRoute,locations.create)
+
+//Users can get a single location, and if authorized update and delete locations
+router.route('/locations/:id')
+  .get(locations.show)
+  .put(secureRoute, locations.update)
+  .delete(secureRoute, locations.delete)
+
+//If authorized, users can create and delete comments (which are data embedded on the location)
+router.route('/locations/:id/comments')
+  .post(secureRoute, locations.commentCreate)
+
+router.route('/locations/:id/comments/:commentId')
+  .delete(secureRoute, locations.commentDelete)
+
+//If authorized, users can create coordinates (which are data embedded on the location)
+router.route('/locations/:id/coords')
+  .post(secureRoute, locations.coordCreate)
+
+//Authentication occurs via registration and login routes
+router.route('/register')
+  .post(auth.register)
+
+router.route('/login')
+  .post(auth.login)
+
+//If authorized, users can update their profile
+router.route('/profileupdate')
+  .put(secureRoute, auth.update)
+
+//If authorized, users can view their profile
+router.route('/profile')
+  .get(secureRoute, auth.profile)
+```
+
+
