@@ -30,10 +30,21 @@ As a group, design and build a full-stack application, using an Express API to s
 * jsonwebtoken
 * Git, and GitHub
 
+### Installation
+* Clone or download the repo
+* Install dependencies: run `npm i` in Terminal
+* Start the database: run `mongod --dbpath ~/data/db` in Terminal
+* Seed the database either via:
+  * running `npm run seed` in Terminal. This will seed the database using the file at ./db/seeds.js
+  * running `npm run seedexternal` in Terminal. This will seed the database using the file at ./db/seedexternal.js
+* Start the backend server: run `npm start`
+* Go to frontend folder using `cd frontend` in Terminal
+* Run the frontend with `npm start` in Terminal
+
 
 ## The App: Discover Your Montréal
 ### Live version
-*A live version of the app can be found here*
+*Coming soon*
 
 Discover Your Montréal is a MERN stack app designed for a community of users to share information on local attractions in and around Montreal. 
 Visitors to the site can browse index and show pages that provide details of  the local attractions, including ratings and comments left by other users.
