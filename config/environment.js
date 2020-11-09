@@ -1,6 +1,6 @@
-const dbURI = 'mongodb://localhost/sitecamp'
-const port = 4000
-const secret = 'this is a glamper secret'
+const dbURI = process.env.MONGODB_URI || 'mongodb://localhost/sitecamp'
+const port = process.env.PORT || 4000
+const secret = process.env.SECRET || 'this is a glamper secret'
 
 module.exports = {
   dbURI,
