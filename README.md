@@ -69,6 +69,9 @@ The team also used Trello to organise daily tasks (agreed each day at a stand-up
 #### Wireframe
 ![Wireframe Screenshot](./Readme_Screenshots/Wireframe_Readme_Screenshot.png)
 
+
+## Backend
+
 ### Models
 
 We built a location model, with coords and comments as embedded data: 
@@ -214,10 +217,47 @@ async function login(req, res, next) {
 ```
 
 
-### Frontend
+## Frontend
 
 API requests in development were proxied, using `http-proxy-middleware`. 
 Following initial work on the backend, the majority of my time was spent developing React components for the frontend.
 
-For authentication, successful submission of form data via the Register component results in redirection to the Login component. 
+For authentication, if submission of form data via the `Register` component is successful, this component redirects to the `Login` component. 
+
+![Register Screenshot](./Readme_Screenshots/Register_Readme_Screenshot.png)
+
+When successfully logged-in (and provided a token from the backend, as shown above), the user is subsequently redirected to a Features page, with a few clickable options, which categorise the available locations into: 'summer', 'go-wild' and 'nightlife'. Upon clicking one of these options, the following Route is used: `<Route path='/features/:feature' component={LocationsIndex} />`.  The user is then shown all available locations that fall into the selected category. This is achieved by the `LocationsIndex` component first getting all locations and then filtering by locations matching the route parameter:
+
+```javascript
+async componentDidMount() {
+    const res = await getLocations()
+    const featureSelected = this.props.match.params.feature
+
+    const isFeaturePresent = (feature) => feature.toLowerCase() === featureSelected
+    const filteredLocations = res.data.filter((location) => {
+      return location.feature.some(isFeaturePresent)
+    })
+
+    this.setState({
+      featureSelected: featureSelected,
+      locationsData: filteredLocations
+    })
+  }
+```
+
+The `LocationsIndex` renders relevant `LocationCard`s, as well as a `LocationsMap`, which uses `react-map-gl`.
+
+The map style used by `LocationsMap` depends on the feature path (summer, go-wild, nightlife).
+
+```javascript
+pickMapStyle(featureSelected) {
+    if (featureSelected === 'gowild') {
+      return 'mapbox://styles/srtn10/ckfzrc12d1crn1alpsr4zljbm'
+    } else if (featureSelected === 'nightlife') {
+      return 'mapbox://styles/srtn10/ckfzqya7i0i4r19qthsh2mthu'
+    } else {
+      return 'mapbox://styles/mapbox/outdoors-v11'
+    }
+  }
+```
 
