@@ -9,7 +9,6 @@ async function register(req, res, next) {
     const user = await User.create(req.body)
     res.status(201).json({ message: `Welcome ${user.username}` })
   } catch (err) {
-    // console.log('***', err)
     next(err)
   }
 }
@@ -32,7 +31,6 @@ async function login(req, res, next) {
     })
 
   } catch (err) {
-    // console.log(err)
     next(err)
   }
 }

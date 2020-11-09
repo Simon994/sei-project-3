@@ -37,14 +37,13 @@ As a group, design and build a full-stack application, using an Express API to s
 * Seed the database either via:
   * running `npm run seed` in Terminal. This will seed the database using the file at ./db/seeds.js
   * running `npm run seedexternal` in Terminal. This will seed the database using the file at ./db/seedexternal.js
-* Start the backend server: run `npm start`
-* Go to frontend folder using `cd frontend` in Terminal
-* Run the frontend with `npm start` in Terminal
+* Start the backend server: run `npm run dev`
+* Navigate in your browser to `localhost:4000/`. You should see the frontend being served to the browser. 
 
 
 ## The App: Discover Your Montréal
 ### Live version
-*Coming soon*
+https://discover-montreal.herokuapp.com/features
 
 Discover Your Montréal is a MERN stack app designed for a community of users to share information on local attractions in and around Montreal. 
 Visitors to the site can browse index and show pages that provide details of  the local attractions, including ratings and comments left by other users.
@@ -173,4 +172,52 @@ router.route('/profile')
   .get(secureRoute, auth.profile)
 ```
 
+#### ***Register controller***
+Registeration creates a `user`. 
+``` Javascript
+async function register(req, res, next) {
+  try {
+    const user = await User.create(req.body)
+    res.status(201).json({ message: `Welcome ${user.username}` })
+  } catch (err) {
+    next(err)
+  }
+}
+```
+
+
+#### ***Login controller***
+The login controller returns a token at the backend:
+
+```javascript
+async function login(req, res, next) {
+  try {
+    const user = await User.findOne({ email: req.body.email })
+    
+    if (!user || !user.validatePassword(req.body.password)){
+      throw new Error(unauthorized)
+    }
+    const token = jwt.sign(
+      { sub: user._id },
+      secret,
+      { expiresIn: '7 days' }
+    )
+    res.status(202).json({
+      message: `Welcome back Glamper ${user.username}`,
+      token
+    })
+
+  } catch (err) {
+    next(err)
+  }
+}
+```
+
+
+### Frontend
+
+API requests in development were proxied, using `http-proxy-middleware`. 
+Following initial work on the backend, the majority of my time was spent developing React components for the frontend.
+
+For authentication, successful submission of form data via the Register component results in redirection to the Login component. 
 
