@@ -35,8 +35,8 @@ As a group, design and build a full-stack application, using an Express API to s
 * Install dependencies: run `npm i` in Terminal
 * Start the database: run `mongod --dbpath ~/data/db` in Terminal
 * Seed the database either via:
-  * running `npm run seed` in Terminal. This will seed the database using the file at ./db/seeds.js
-  * running `npm run seedexternal` in Terminal. This will seed the database using the file at ./db/seedexternal.js
+  * running `npm run seed` in Terminal. This will seed the database using the file at ./db/seeds.js, which uses a small number of user data that we have provided.
+  * running `npm run seedexternal` in Terminal. This will seed the database using the file at ./db/seedexternal.js, which uses faker (https://www.npmjs.com/package/faker) to populate the database with user data.
 * Start the backend server: run `npm run dev`
 * Navigate in your browser to `localhost:4000/`. You should see the frontend being served to the browser. 
 
@@ -309,9 +309,11 @@ export async function geoCoord(coordInput){
 }
 ```
 
-## Seeding
-
-
 ## Potential future improvements
-
+There are several minor improvements that could be made to the app:
+* Users could be given the option to update not only their bio and profile image (as is currently the case) but also other parts of their profile, such as username, password etc.
+* In several places the code could be improved by removing unecessary comments or old code which is no longer needed.
+* The location model allows for amenities (and these are rendered via `LocationShow` on the frontend); however, there is currently no input field on `LocationNew` to add amenities for a location.
+* Also on `LocationNew`, the field that allows `ImageUpload` does not currently clear the image after form submission.
+* The app could be scrutinised for other simple-to-implement improvements of benefit to the user; for example, password inputs could be changed to `type=password` to avoid displaying the password as it is typed.
 
