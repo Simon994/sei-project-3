@@ -147,52 +147,6 @@ class LocationShow extends React.Component {
           </Segment>
         </Segment>
 
-
-        {/* <div className='location-show-container'>
-          <div className='carousel-container'>
-            <Carousel showThumbs={false}>
-              {placePhotos.map((photo, index) => {
-                return <CarouselSlide key={index} photo={photo} />
-              })}
-            </Carousel>
-          </div>
-
-          <div className='location-show-info'>
-
-            <h1>{placeName}</h1>
-            <h2>{placeDescription}</h2>
-
-            <p>Has:
-              {
-                features.map((element, index) => {
-                  return <span key={index}>{element}</span>
-                })
-              }
-            </p>
-
-            <p>Amenities:
-              {
-                amenities.map((amenity, index) => {
-                  return <span key={index}>{amenity}</span>
-                })
-              }
-            </p>
-            <Button
-              fluid
-              animated='fade'
-              as={Link}
-              to='/features'
-            >
-              <Button.Content visible>Discover More Locations</Button.Content>
-              <Button.Content hidden>Back to Features</Button.Content>
-            </Button>
-          </div>
-        </div>
-
-
-        <LocationComments locationId={locationId} comments={comments} />
-
-        <LocalPublic {...local} /> */}
       </>
     )
   }

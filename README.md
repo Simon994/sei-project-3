@@ -261,3 +261,13 @@ pickMapStyle(featureSelected) {
   }
 ```
 
+
+`LocationCard`'s each link to a page showing further details of the selected location (rendered by `LocationShow`). `LocationShow` also renders the bio of the user who posted the location, as well as -- via a `LocationComments` component-- ratings and comments on the location. If a user is logged in (`isAuthenticated` is true), they are able to add their own comment and rating. An average community rating (provided from the backend) is also shown.
+
+![LocationShow Screenshot](./Readme_Screenshots/LocationShow_Readme_Screenshot.png)
+
+Each single comment is rendered via a component `LocationSingleComment` (a child of `LocationComments`). `LocationSingleComment` includes conditional rendering of a delete button for a user's own posts (via both this conditional rendering, as well as the `locationCommentDelete` controller on the backend, a user can delete only their own posts and not those of other users).
+
+
+
+
