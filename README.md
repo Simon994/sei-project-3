@@ -216,6 +216,9 @@ async function login(req, res, next) {
 }
 ```
 
+#### ***Location coordinates***:
+
+https://www.npmjs.com/package/react-geocode
 
 ## Frontend
 
@@ -280,5 +283,35 @@ Once registered via use of `LocalRegister`, the user is redirected to their pero
 
 ![LocalProfile Screenshot](./Readme_Screenshots/Profile_Readme_Screenshot.png)
 
+#### ***Location coordinates***
+To allow users to input a geographical location on the _Contribute a new location_ form that would then be converted into latitude and longitude coordinates (needed at the backend for the `location` model), Teresa implemented react-geocode (https://www.npmjs.com/package/react-geocode):
+
+```javascript
+import Geocode from 'react-geocode'
+
+export async function geoCoord(coordInput){
+  const ApiKey = process.env.REACT_APP_GOOGLE_MAPS_GEOCODING_API
+
+  Geocode.setApiKey(ApiKey)
+  Geocode.setLanguage('en')
+  Geocode.setRegion('CA')
+
+  const result = await Geocode.fromAddress(coordInput).then(
+    response => {
+      const { lat, lng } = response.results[0].geometry.location
+      return { latitude: lat, longitude: lng } 
+    },
+    error => {
+      console.error(error)
+    }
+  )
+  return result
+}
+```
+
+## Seeding
+
+
+## Potential future improvements
 
 
