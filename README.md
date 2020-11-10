@@ -268,6 +268,17 @@ pickMapStyle(featureSelected) {
 
 Each single comment is rendered via a component `LocationSingleComment` (a child of `LocationComments`). `LocationSingleComment` includes conditional rendering of a delete button for a user's own posts (via both this conditional rendering, as well as the `locationCommentDelete` controller on the backend, a user can delete only their own posts and not those of other users).
 
+### User Profile
+
+A key part of the app is the user profile, which allows users to post locations. To access their profile, a user must register to Contribute (via the Contribute button on the navbar). This registration step is handled through the component `LocalRegister`, which via conditional renderring allows the following:
+
+* If not yet logged in, the user is asked for full registration details, including a profile image, as well as a bio.
+* If a user is already logged in, they will simply be asked to supply a bio and are given the option to update their profile photo.
+* Users can also update their profile bio and image using this component (via a link on their profile page)
+
+Once registered via use of `LocalRegister`, the user is redirected to their perosnal profile page, rendered by `LocalProfile`. There, the user can add new locations and delete locations that they have previously added via the components `LocationNew` and `LocalLocationCard` -- child and grandchild, respectively, of `LocalProfile`.
+
+![LocalProfile Screenshot](./Readme_Screenshots/Profile_Readme_Screenshot.png)
 
 
 
